@@ -161,7 +161,7 @@ if __name__ == "__main__":
     parser.add_argument('--timeout', default=60, type=int, help="Max seconds to run")
     parser.add_argument('--gpus', default=0, type=int, help="Number of GPUs to use")
     parser.add_argument('--nodes', default=0, type=int, help="Number of nodes to use")
-    parser.add_argument('--strategy', default='ddp', type=int, help="Strategy to use for training models")
+    parser.add_argument('--strategy', default='ddp', type=str, help="Strategy to use for training models")
     args = parser.parse_args()
 
     pruner: optuna.pruners.BasePruner = (
