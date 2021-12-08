@@ -134,6 +134,8 @@ def objective(trial: optuna.trial.Trial) -> float:
         checkpoint_callback=False,
         max_epochs=args.epochs,
         gpus=args.gpus,
+        strategy=args.strategy,
+        num_nodes=args.nodes,
         callbacks=[PyTorchLightningPruningCallback(trial, monitor="val_acc")],
     )
     hyperparameters = dict(n_layers=n_layers, dropout=dropout, output_dims=output_dims, epoch=args.epochs, batchsize=args.batchsize)
@@ -158,6 +160,8 @@ if __name__ == "__main__":
     parser.add_argument('--epochs', default=EPOCHS, type=int, help="Max epochs")
     parser.add_argument('--timeout', default=60, type=int, help="Max seconds to run")
     parser.add_argument('--gpus', default=0, type=int, help="Number of GPUs to use")
+    parser.add_argument('--nodes', default=0, type=int, help="Number of nodes to use")
+    parser.add_argument('--strategy', default='ddp', type=int, help="Strategy to use for training models")
     args = parser.parse_args()
 
     pruner: optuna.pruners.BasePruner = (
